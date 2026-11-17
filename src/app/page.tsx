@@ -37,7 +37,7 @@ export default async function HomePage() {
         {resume && (
           <Link
             href="/party"
-            className="card flex items-center gap-3 p-2.5 pr-4 transition hover:border-line2"
+            className="card press flex items-center gap-3 p-2.5 pr-4 transition hover:border-line2"
           >
             <div className="w-10 shrink-0">
               <Poster title={resume.title} art />
@@ -67,7 +67,7 @@ export default async function HomePage() {
             </h2>
             <span className="text-xs text-muted">{live.length} friends live</span>
           </div>
-          <div className="group -mx-1 flex gap-3 overflow-x-auto px-1 pb-2">
+          <div className="stagger-children group -mx-1 flex gap-3 overflow-x-auto px-1 pb-2">
             {live.map((v) => (
               <LiveCard key={v.activity.id} view={v} />
             ))}
@@ -79,7 +79,7 @@ export default async function HomePage() {
       <div className="grid gap-8 lg:grid-cols-[1fr_300px]">
         <section>
           <h2 className="section-title mb-2">Friend activity</h2>
-          <div className="card divide-y divide-line p-2">
+          <div className="card stagger-children divide-y divide-line p-2">
             {feed.map((v) => (
               <FeedItem key={v.activity.id} view={v} />
             ))}
@@ -95,7 +95,7 @@ export default async function HomePage() {
                 Add
               </button>
             </div>
-            <div className="card p-2">
+            <div className="card stagger-children p-2">
               {friends.map(({ user, latest }) => (
                 <FriendStatus key={user.id} user={user} latest={latest} />
               ))}
@@ -112,7 +112,7 @@ export default async function HomePage() {
             Browse all
           </Link>
         </div>
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="stagger-children grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {popular.map((list) => (
             <ListCard key={list.id} list={list} />
           ))}

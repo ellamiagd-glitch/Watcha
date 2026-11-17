@@ -81,7 +81,7 @@ export default async function ProfilePage({
       <section>
         <h2 className="section-title mb-3">{isMe ? "Your lists" : "Lists"}</h2>
         {lists.length > 0 ? (
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="stagger-children grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {lists.map((list) => (
               <ListCard key={list.id} list={list} />
             ))}
@@ -98,7 +98,7 @@ export default async function ProfilePage({
       {recent.length > 0 && (
         <section>
           <h2 className="section-title mb-3">Recently watched</h2>
-          <div className="card divide-y divide-line p-2">
+          <div className="card stagger-children divide-y divide-line p-2">
             {recent.map((v) => (
               <FeedItem key={v.activity.id} view={v} />
             ))}

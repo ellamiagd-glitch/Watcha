@@ -14,7 +14,7 @@ export default async function ListsPage() {
         </p>
       </header>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="stagger-children grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {lists.map((list) => (
           <ListCard key={list.id} list={list} />
         ))}

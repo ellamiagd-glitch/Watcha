@@ -29,7 +29,10 @@ body {
     @apply inline-flex items-center gap-1.5 rounded-full border border-line bg-white/[0.03] px-2.5 py-1 text-xs font-medium text-muted;
   }
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-4 py-2 text-sm font-semibold transition active:translate-y-px active:scale-[0.98];
+  }
+  .press {
+    @apply transition active:scale-[0.985];
   }
   .btn-primary {
     @apply btn bg-brand text-white hover:bg-brand-dim;
@@ -61,4 +64,46 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: rgba(255, 255, 255, 0.18);
   background-clip: content-box;
+}
+
+/* Staggered entrance — pure CSS cascade, keeps components server-rendered. */
+.stagger-children > * {
+  animation: fadeUp 0.45s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.stagger-children > *:nth-child(1) {
+  animation-delay: 0.02s;
+}
+.stagger-children > *:nth-child(2) {
+  animation-delay: 0.06s;
+}
+.stagger-children > *:nth-child(3) {
+  animation-delay: 0.1s;
+}
+.stagger-children > *:nth-child(4) {
+  animation-delay: 0.14s;
+}
+.stagger-children > *:nth-child(5) {
+  animation-delay: 0.18s;
+}
+.stagger-children > *:nth-child(6) {
+  animation-delay: 0.22s;
+}
+.stagger-children > *:nth-child(7) {
+  animation-delay: 0.26s;
+}
+.stagger-children > *:nth-child(8) {
+  animation-delay: 0.3s;
+}
+.stagger-children > *:nth-child(n + 9) {
+  animation-delay: 0.34s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }

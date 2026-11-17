@@ -18,7 +18,7 @@ export function LiveCard({ view }: { view: ActivityView }) {
   const { user, title, activity } = view;
   const ep = episodeLabel(view);
   return (
-    <div className="card w-[260px] shrink-0 overflow-hidden p-3 animate-fadeUp">
+    <div className="card w-[260px] shrink-0 overflow-hidden p-3">
       <div className="relative">
         <Poster title={title} size="sm" />
         <button

@@ -9,7 +9,7 @@ export function ListCard({ list }: { list: ListView }) {
   return (
     <Link
       href={`/lists/${list.id}`}
-      className="card group block overflow-hidden p-4 transition hover:border-line2 hover:bg-panel focus-visible:border-line2"
+      className="card press group block overflow-hidden p-4 transition hover:border-line2 hover:bg-panel focus-visible:border-line2"
     >
       {/* fanned poster stack */}
       <div className="flex items-end gap-2">
