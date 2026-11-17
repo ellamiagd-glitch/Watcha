@@ -3,7 +3,7 @@ import {
   getProfileByUsername,
   getListsByOwner,
   getUserActivity,
-  CURRENT_USER_ID,
+  getCurrentUser,
 } from "@/lib/data";
 import { Avatar } from "@/components/avatar";
 import { ListCard } from "@/components/list-card";
@@ -19,12 +19,13 @@ export default async function ProfilePage({
   const profile = await getProfileByUsername(username);
   if (!profile) notFound();
 
-  const [lists, activity] = await Promise.all([
+  const [lists, activity, me] = await Promise.all([
     getListsByOwner(profile.id),
     getUserActivity(profile.id),
+    getCurrentUser(),
   ]);
 
-  const isMe = profile.id === CURRENT_USER_ID;
+  const isMe = profile.id === me?.id;
   const watching = activity.filter((v) => v.activity.status === "watching");
   const recent = activity.filter((v) => v.activity.status === "finished");
 

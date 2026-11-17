@@ -20,7 +20,7 @@ export default async function HomePage() {
     getFriendFeed(),
     getFriendStatuses(),
     getPublicLists(),
-    getUserActivity("u_ella"),
+    getUserActivity(),
   ]);
 
   const resume = myActivity.find((v) => v.activity.status === "watching");
@@ -32,7 +32,9 @@ export default async function HomePage() {
       <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm text-muted">Welcome back</p>
-          <h1 className="font-display text-3xl font-bold tracking-tight">Hi, {me.displayName}</h1>
+          <h1 className="font-display text-3xl font-bold tracking-tight">
+            Hi, {me?.displayName ?? "there"}
+          </h1>
         </div>
         {resume && (
           <Link

@@ -3,20 +3,40 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "./icon";
+import { Avatar } from "./avatar";
+import { signOut } from "@/app/actions";
 
-const NAV = [
-  { href: "/", label: "Home", icon: "home" as const },
-  { href: "/lists", label: "Lists", icon: "list" as const },
-  { href: "/profile/ella", label: "Profile", icon: "user" as const, match: "/profile" },
-];
+type ShellUser = { username: string; displayName: string } | null;
 
-function isActive(pathname: string, item: (typeof NAV)[number]) {
+function navFor(username: string) {
+  return [
+    { href: "/", label: "Home", icon: "home" as const },
+    { href: "/lists", label: "Lists", icon: "list" as const },
+    { href: `/profile/${username}`, label: "Profile", icon: "user" as const, match: "/profile" },
+  ];
+}
+
+function isActive(pathname: string, item: { href: string; match?: string }) {
   if (item.href === "/") return pathname === "/";
   return pathname.startsWith(item.match ?? item.href);
 }
 
-export function AppShell({ children }: { children: React.ReactNode }) {
+export function AppShell({
+  children,
+  currentUser,
+}: {
+  children: React.ReactNode;
+  currentUser: ShellUser;
+}) {
   const pathname = usePathname();
+
+  // No app chrome on auth screens.
+  if (pathname.startsWith("/login") || pathname.startsWith("/auth")) {
+    return <>{children}</>;
+  }
+
+  const username = currentUser?.username ?? "ella";
+  const nav = navFor(username);
 
   return (
     <div className="min-h-dvh lg:grid lg:grid-cols-[248px_1fr]">
@@ -30,7 +50,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         </Link>
 
         <nav className="flex flex-col gap-1" aria-label="Primary">
-          {NAV.map((item) => (
+          {nav.map((item) => (
             <Link
               key={item.href}
               href={item.href}
@@ -43,14 +63,39 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           ))}
         </nav>
 
-        <div className="mt-auto space-y-3">
+        <div className="mt-auto space-y-4">
           <Link href="/party" className="btn-primary w-full">
             <Icon name="sparkles" size={18} />
             Start a watch party
           </Link>
-          <p className="px-2 text-[11px] leading-relaxed text-muted">
-            Sync a show with friends and chat while you watch.
-          </p>
+
+          {currentUser && (
+            <div className="flex items-center gap-2.5 border-t border-line pt-4">
+              <Avatar
+                profile={{
+                  id: "me",
+                  username: currentUser.username,
+                  displayName: currentUser.displayName,
+                  friendIds: [],
+                }}
+                size="sm"
+              />
+              <div className="min-w-0 flex-1">
+                <div className="truncate text-sm font-medium">{currentUser.displayName}</div>
+                <div className="truncate text-xs text-muted">@{currentUser.username}</div>
+              </div>
+              <form action={signOut}>
+                <button
+                  type="submit"
+                  className="press grid h-8 w-8 place-items-center rounded-lg text-muted transition hover:bg-white/[0.05] hover:text-txt"
+                  aria-label="Sign out"
+                  title="Sign out"
+                >
+                  <Icon name="play" size={16} className="rotate-180" />
+                </button>
+              </form>
+            </div>
+          )}
         </div>
       </aside>
 
@@ -80,7 +125,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         className="fixed inset-x-0 bottom-0 z-40 flex items-stretch justify-around border-t border-line bg-ink/90 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
         aria-label="Primary"
       >
-        {NAV.map((item) => {
+        {nav.map((item) => {
           const active = isActive(pathname, item);
           return (
             <Link

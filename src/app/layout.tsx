@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { AppShell } from "@/components/app-shell";
+import { getCurrentUser } from "@/lib/data";
 
 const geist = Geist({
   variable: "--font-geist-sans",
@@ -21,13 +22,16 @@ export const metadata: Metadata = {
     "See what your friends are watching in real time, sync up for watch parties, and share your favourite shows and films.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const me = await getCurrentUser();
+  const currentUser = me ? { username: me.username, displayName: me.displayName } : null;
+
   return (
     <html lang="en">
       <body className={`${geist.variable} ${display.variable} font-sans`}>
-        <AppShell>{children}</AppShell>
+        <AppShell currentUser={currentUser}>{children}</AppShell>
       </body>
     </html>
   );
