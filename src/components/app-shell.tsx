@@ -1,0 +1,102 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { Icon } from "./icon";
+
+const NAV = [
+  { href: "/", label: "Home", icon: "home" as const },
+  { href: "/lists", label: "Lists", icon: "list" as const },
+  { href: "/profile/ella", label: "Profile", icon: "user" as const, match: "/profile" },
+];
+
+function isActive(pathname: string, item: (typeof NAV)[number]) {
+  if (item.href === "/") return pathname === "/";
+  return pathname.startsWith(item.match ?? item.href);
+}
+
+export function AppShell({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname();
+
+  return (
+    <div className="min-h-dvh lg:grid lg:grid-cols-[248px_1fr]">
+      {/* Desktop sidebar */}
+      <aside className="sticky top-0 hidden h-dvh flex-col border-r border-line px-4 py-6 lg:flex">
+        <Link href="/" className="mb-8 flex items-center gap-2.5 px-2">
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white">
+            <Icon name="playCircle" size={22} />
+          </span>
+          <span className="font-display text-xl font-bold tracking-tight">WhosView</span>
+        </Link>
+
+        <nav className="flex flex-col gap-1" aria-label="Primary">
+          {NAV.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`nav-item ${isActive(pathname, item) ? "nav-item-active" : ""}`}
+              aria-current={isActive(pathname, item) ? "page" : undefined}
+            >
+              <Icon name={item.icon} />
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="mt-auto space-y-3">
+          <Link href="/party" className="btn-primary w-full">
+            <Icon name="sparkles" size={18} />
+            Start a watch party
+          </Link>
+          <p className="px-2 text-[11px] leading-relaxed text-muted">
+            Sync a show with friends and chat while you watch.
+          </p>
+        </div>
+      </aside>
+
+      {/* Main */}
+      <div className="flex min-w-0 flex-col pb-24 lg:pb-0">
+        {/* Mobile top bar */}
+        <header className="sticky top-0 z-40 flex items-center justify-between border-b border-line bg-ink/80 px-4 py-3 backdrop-blur lg:hidden">
+          <Link href="/" className="flex items-center gap-2">
+            <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand text-white">
+              <Icon name="playCircle" size={20} />
+            </span>
+            <span className="font-display text-lg font-bold">WhosView</span>
+          </Link>
+          <Link href="/party" className="btn-primary px-3 py-1.5 text-xs">
+            <Icon name="sparkles" size={16} />
+            Party
+          </Link>
+        </header>
+
+        <main className="mx-auto w-full max-w-6xl flex-1 px-4 py-6 sm:px-6 lg:px-10 lg:py-8">
+          {children}
+        </main>
+      </div>
+
+      {/* Mobile bottom nav */}
+      <nav
+        className="fixed inset-x-0 bottom-0 z-40 flex items-stretch justify-around border-t border-line bg-ink/90 pb-[env(safe-area-inset-bottom)] backdrop-blur lg:hidden"
+        aria-label="Primary"
+      >
+        {NAV.map((item) => {
+          const active = isActive(pathname, item);
+          return (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`flex min-h-[56px] flex-1 flex-col items-center justify-center gap-1 text-[11px] font-medium transition ${
+                active ? "text-brand" : "text-muted"
+              }`}
+              aria-current={active ? "page" : undefined}
+            >
+              <Icon name={item.icon} size={22} />
+              {item.label}
+            </Link>
+          );
+        })}
+      </nav>
+    </div>
+  );
+}
