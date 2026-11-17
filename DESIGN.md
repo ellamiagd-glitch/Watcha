@@ -27,7 +27,9 @@ Color is never the only signal — presence pairs red with a pulsing dot and
 the word "Watching"; services pair their brand colour with a text label.
 
 ## Type
-- **Inter** for UI/body. **Space Grotesk** (`font-display`) for headings + wordmark.
+- **Geist** for UI/body. **Archivo** heavy (`font-display`) for headings + wordmark
+  — a free, license-clean stand-in for Urca: geometric, flat, sharp corners.
+  (Swap in a licensed Urca webfont at `--font-display` if one becomes available.)
 - Base 16px, line-height 1.5. Scale: 12 / 14 / 16 / 18 / 24 / 32.
 - Weight carries hierarchy: 600–700 headings, 500 labels, 400 body.
 

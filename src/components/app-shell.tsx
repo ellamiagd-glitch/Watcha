@@ -46,7 +46,7 @@ export function AppShell({
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white">
             <Icon name="playCircle" size={22} />
           </span>
-          <span className="font-display text-xl font-bold tracking-tight">WhosView</span>
+          <span className="font-display text-xl font-black tracking-tight">WhosView</span>
         </Link>
 
         <nav className="flex flex-col gap-1" aria-label="Primary">
@@ -107,7 +107,7 @@ export function AppShell({
             <span className="grid h-8 w-8 place-items-center rounded-lg bg-brand text-white">
               <Icon name="playCircle" size={20} />
             </span>
-            <span className="font-display text-lg font-bold">WhosView</span>
+            <span className="font-display text-lg font-black">WhosView</span>
           </Link>
           <Link href="/party" className="btn-primary px-3 py-1.5 text-xs">
             <Icon name="sparkles" size={16} />

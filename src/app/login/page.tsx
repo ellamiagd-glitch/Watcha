@@ -69,7 +69,7 @@ export default function LoginPage() {
           <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white">
             <Icon name="playCircle" size={22} />
           </span>
-          <span className="font-display text-xl font-bold tracking-tight">WhosView</span>
+          <span className="font-display text-xl font-black tracking-tight">WhosView</span>
         </div>
         <div className="max-w-md">
           <h1 className="font-display text-4xl font-bold leading-[1.05] tracking-tight">
@@ -93,7 +93,7 @@ export default function LoginPage() {
               <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand text-white">
                 <Icon name="playCircle" size={22} />
               </span>
-              <span className="font-display text-xl font-bold tracking-tight">WhosView</span>
+              <span className="font-display text-xl font-black tracking-tight">WhosView</span>
             </div>
           </div>
 
