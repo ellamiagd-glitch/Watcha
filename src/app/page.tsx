@@ -71,7 +71,7 @@ export default async function HomePage() {
             </h2>
             <span className="text-xs text-muted">{live.length} friends live</span>
           </div>
-          <div className="stagger-children group -mx-1 flex gap-3 overflow-x-auto px-1 pb-2">
+          <div className="stagger-children -mx-1 flex gap-3 overflow-x-auto px-1 pb-2">
             {live.map((v) => (
               <LiveCard key={v.activity.id} view={v} />
             ))}
@@ -99,11 +99,21 @@ export default async function HomePage() {
                 Add
               </button>
             </div>
-            <div className="card stagger-children p-2">
-              {friends.map(({ user, latest }) => (
-                <FriendStatus key={user.id} user={user} latest={latest} />
-              ))}
-            </div>
+            {friends.length > 0 ? (
+              <div className="card stagger-children p-2">
+                {friends.map(({ user, latest }) => (
+                  <FriendStatus key={user.id} user={user} latest={latest} />
+                ))}
+              </div>
+            ) : (
+              <div className="card grid place-items-center gap-2 p-6 text-center">
+                <Icon name="users" size={24} className="text-muted" />
+                <p className="text-sm text-muted">No friends yet.</p>
+                <p className="text-xs text-muted">
+                  Add friends to see what they&apos;re watching here.
+                </p>
+              </div>
+            )}
           </section>
         </aside>
       </div>
