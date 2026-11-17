@@ -12,6 +12,7 @@ import { FriendStatus } from "@/components/friend-status";
 import { ListCard } from "@/components/list-card";
 import { Poster } from "@/components/poster";
 import { Icon } from "@/components/icon";
+import { LiveRefresher } from "@/components/live-refresher";
 
 export default async function HomePage() {
   const [me, live, feed, friends, lists, myActivity] = await Promise.all([
@@ -28,6 +29,7 @@ export default async function HomePage() {
 
   return (
     <div className="space-y-8">
+      <LiveRefresher />
       {/* Greeting + resume */}
       <header className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
